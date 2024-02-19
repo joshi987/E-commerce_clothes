@@ -1,0 +1,33 @@
+.flex-container{
+    display: flex;
+    justify-content: space-around;
+    /* border: solid red; */
+    text-align: center;
+    max-width: 100%;
+    background-color: rgba(1, 1, 1, 0.93);
+    color: aliceblue;
+    border-radius: 20px;
+   
+}
+
+.flex-img{
+    width: 300px;
+    height: 300px;
+   position: relative;
+   left: 30px;
+    border-radius: 20px;
+}
+
+.flex-img2{
+    width: 300px;
+    height: 300px;
+    position: relative;
+    right: 30px; 
+    border-radius: 20px;
+}
+
+.flex-text{
+font-size:2em;
+text-align: center;
+margin: auto;
+}

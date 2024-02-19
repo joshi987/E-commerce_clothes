@@ -1,0 +1,13 @@
+
+
+@media (min-width: 1024px) {
+    
+    .img-display{
+        display: none;
+    }
+
+    .option-container{
+        margin-top: -500px;
+    }
+    }
+  

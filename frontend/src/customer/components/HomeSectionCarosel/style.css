@@ -1,0 +1,12 @@
+
+  
+  .slick-prev {
+    left: -20px;
+    border-radius: 2px;
+
+}
+
+.slick-next {
+    right: -20px;
+    border-radius: 2px;
+  }

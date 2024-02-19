@@ -1,0 +1,131 @@
+/* addbag.css */
+
+.cartWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-top: 20px;
+  }
+  
+  .cartCard {
+    width: 200px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .img-bag {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 5px;
+  }
+  
+  .product-name {
+    margin-top: 10px;
+    font-weight: bold;
+  }
+  
+  .product-price {
+    margin-top: 10px;
+    color: #007bff;
+  }
+  
+  .total {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .buyNowButton {
+    display: block;
+    width: 100%;
+    max-width: 200px;
+    margin: 20px auto;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .buyNowButton:hover {
+    background-color: #0056b3;
+  }
+
+  .countWrapper {
+    display: flex;
+    align-items: center;
+  }
+  
+  .countWrapper button {
+    background-color: #f0f0f0;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  .countWrapper p {
+    margin: 0 10px;
+  }
+  
+  .total {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  
+  /* buynow.css */
+
+.buyNowContainer {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .buyNowContainer h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .buyNowContainer form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .buyNowContainer label {
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  .buyNowContainer input[type="text"] {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .buyNowContainer button[type="submit"] {
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .buyNowContainer button[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+  
