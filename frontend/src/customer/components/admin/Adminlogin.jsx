@@ -1,15 +1,16 @@
 import { useState, useEffect } from "react";
-import "./account.css";
-import { registerUser } from "../../../services/authServices";
 import { useNavigate } from "react-router-dom";
+import { adminlogin } from "../../../services/authServices";
 
-function CreateAccount() {
-  const initialValues = { username: "", email: "", password: "" };
+
+
+
+function Adminlogin() {
+  const initialValues = { email: "", password: "" };
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
   const navigate = useNavigate();
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
@@ -17,38 +18,34 @@ function CreateAccount() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setFormErrors(validate(formValues));
+    setFormErrors(validate(formValues)); //first class citizens
     setIsSubmit(true);
 
     const userData = {
-      name: formValues.username,
       email: formValues.email,
       password: formValues.password,
     };
 
     try {
-      const data = await registerUser(userData);
-      console.log(data);
-      navigate("/sign"); 
-
-    } catch (error) {
-      console.log(error.message);
-    }
+        const data = await adminlogin(userData);
+        console.log(data);
+        navigate("/admin")
+      } catch (error) {
+        console.log(error.message);
+      }
   };
 
   useEffect(() => {
+    console.log(formErrors);
     if (Object.keys(formErrors).length === 0 && isSubmit) {
       console.log(formValues);
-      navigate("/sign");
     }
   }, [formErrors]);
 
   const validate = (values) => {
     const errors = {};
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
-    if (!values.username) {
-      errors.username = "Username is required!";
-    }
+ 
     if (!values.email) {
       errors.email = "Email is required!";
     } else if (!regex.test(values.email)) {
@@ -70,17 +67,7 @@ function CreateAccount() {
         <h1>Login Form</h1>
         <div className="ui divider"></div>
         <div className="ui form">
-          <div className="field">
-            <label>Username</label>
-            <input
-              type="text"
-              name="username"
-              placeholder="Username"
-              value={formValues.username}
-              onChange={handleChange}
-            />
-          </div>
-          <p>{formErrors.username}</p>
+         
           <div className="field">
             <label>Email</label>
             <input
@@ -103,12 +90,11 @@ function CreateAccount() {
             />
           </div>
           <p>{formErrors.password}</p>
-          <button disabled={Object.keys(formErrors).length !== 0} className="fluid ui button blue">Submit</button>
+          <button className="fluid ui button blue">Submit</button>
         </div>
       </form>
     </div>
   );
 }
 
-export default CreateAccount;
-
+export default Adminlogin;

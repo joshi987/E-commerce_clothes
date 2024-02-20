@@ -54,3 +54,69 @@ export const loginUser = async (userData) => {
     toast.error(message);
   }
 };
+
+//logout
+export const loginOut = async (userData) => {
+  try {
+    const response = await axios.post(
+      `${BACKEND_URL}/api/users/logout`,
+      userData,
+      { withCredentials: true }
+    );
+    if (response.statusText === "OK") {
+      toast.success("Login Succesful...");
+    }
+    return response.data;
+  } catch (error) {
+    const message =
+      (error.response && error.response.data && error.response.data.message) ||
+      error.message ||
+      error.toString();
+    toast.error(message);
+  }
+};
+
+
+//adminlogin
+export const adminlogin = async (userData) => {
+  try {
+    const response = await axios.post(
+      `${BACKEND_URL}/admins`,
+      userData,
+      { withCredentials: true }
+    );
+    if (response.statusText === "OK") {
+      toast.success("Login Succesful...");
+    }
+    return response.data;
+  } catch (error) {
+    const message =
+      (error.response && error.response.data && error.response.data.message) ||
+      error.message ||
+      error.toString();
+    toast.error(message);
+  }
+};
+
+
+//adminlogout
+
+export const adminlogout = async (userData) => {
+  try {
+    const response = await axios.post(
+      `${BACKEND_URL}/log-out`,
+      userData,
+      { withCredentials: true }
+    );
+    if (response.statusText === "OK") {
+      toast.success("Login Succesful...");
+    }
+    return response.data;
+  } catch (error) {
+    const message =
+      (error.response && error.response.data && error.response.data.message) ||
+      error.message ||
+      error.toString();
+    toast.error(message);
+  }
+};

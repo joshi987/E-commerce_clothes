@@ -41,6 +41,7 @@
     border-radius: 5px;
     border: 1px solid #ccc;
   }
+
   
   .fluid {
     width: 100%;
@@ -57,3 +58,15 @@
     background-color: #00a7b3;
   }
   
+  /* Define styles for disabled buttons */
+.disabled {
+  opacity: 0.5; /* Reduce opacity for disabled buttons */
+  cursor: not-allowed; /* Change cursor to indicate that the button is disabled */
+}
+
+/* Optionally, you can apply additional styling to differentiate disabled buttons */
+.disabled:hover {
+  /* Add hover styles for disabled buttons if needed */
+  /* Example: Change background color */
+  background-color: #ccc;
+}

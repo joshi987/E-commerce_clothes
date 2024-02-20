@@ -19,6 +19,7 @@ import {  ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import BuyNowPage from './customer/components/addbag/BuyNowPage.jsx';
 import Admin from './customer/components/admin/Admin.jsx';
+import Adminlogin from './customer/components/admin/Adminlogin.jsx';
 
 axios.defaults.withCredentials = true;
 
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
       {
         path:"/admin",
         element:<Admin/>
+      },
+      {
+        path:"/adminlogin",
+        element:<Adminlogin/>
       }
        
     

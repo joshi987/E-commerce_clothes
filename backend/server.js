@@ -4,6 +4,9 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const userRouter = require("./routes/userRoute")
+const productRoute = require("./routes/productRoute")
+const admincontrol = require("./routes/adminRoute")
+const logout = require("./routes/adminLogout")
 const errorHandler =require('./middleWare/erroMiddleware')
 const cookieParser = require("cookie-parser")
 const app = express();
@@ -14,13 +17,16 @@ app.use(cookieParser())
 app.use(express.urlencoded({extended:false}))
 app.use(bodyParser.json())
 app.use(cors({
-    origin:["http://localhost:5173", "https://pinvent-app.vercel.app"],
+    origin:["http://localhost:5173"],
     credentials:true
 }))
 
 
 //Routes Middleware
 app.use("/api/users", userRouter)
+app.use("/api/products", productRoute)
+app.use("/admins", admincontrol)
+app.use("/log-out", logout)
 
 
 

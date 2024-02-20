@@ -163,10 +163,29 @@ if(verified){
 return res.json(false);
 })
 
+const ProductsApi = asyncHandler (async (req,res)=>{
+  try {
+    const { name, price, description } = req.body;
+    const newProduct = new Product({ name, price, description });
+    await newProduct.save();
+    res.status(201).json(newProduct);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Server Error');
+  }
+
+})
+
+const adminpanel = asyncHandler(async (req,res)=>{
+res.send("admin")
+})
+
 module.exports = {
   registerUser,
   loginUser,
   logOut,
   getUser,
-  loginStatus
+  loginStatus,
+  ProductsApi,
+  adminpanel
 };
