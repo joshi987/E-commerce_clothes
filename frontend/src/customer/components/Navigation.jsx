@@ -1,17 +1,3 @@
-/*
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/aspect-ratio'),
-    ],
-  }
-  ```
-*/
 import { Fragment, useState } from "react";
 import { Dialog, Popover, Tab, Transition } from "@headlessui/react";
 
@@ -21,21 +7,21 @@ import {
   ShoppingBagIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import Avatars from "./HomeSectionCart/avatar/Avatars";
-import { Link } from "react-router-dom";
+import Avatar from "@mui/material/Avatar";
+import { Link, Navigate } from "react-router-dom";
 
-import {useSelector} from "react-redux"
+import { useSelector } from "react-redux";
+import { setName } from "../redux/feature/authSlice";
+import useRedirectLoggedOutUser from "../../customHooks/useRedirectLoggedOutUser";
 // import { updateQuantity } from "../redux/feature/cartSlice";
+
 
 const navigation = {
   categories: [
     {
       id: "women",
       name: "Women",
-      featured: [
-    
-    
-      ],
+      featured: [],
       sections: [
         {
           id: "clothing",
@@ -52,8 +38,6 @@ const navigation = {
             { name: "Browse All", href: "#" },
           ],
         },
-       
-     
       ],
     },
     {
@@ -68,7 +52,6 @@ const navigation = {
           imageAlt:
             "Drawstring top with elastic loop closure and textured interior padding.",
         },
-    
       ],
       sections: [
         {
@@ -84,8 +67,6 @@ const navigation = {
             { name: "Browse All", href: "#" },
           ],
         },
-        
-      
       ],
     },
   ],
@@ -100,10 +81,19 @@ function classNames(...classes) {
 }
 
 export default function Navigation() {
-  const [open, setOpen] = useState(false);
-    const addme = useSelector((state)=>state.cart.products)
-   
 
+  const [open, setOpen] = useState(false);
+  const addme = useSelector((state) => state.cart.products);
+  const name = useSelector(setName);
+  // const navigate =  Navigate();
+  // const isUserSignedIn = !!localStorage.getItem()
+  console.log(name.name);
+  // useRedirectLoggedOutUser("sign")
+  // const handleSignout = ()=>{
+  //   localStorage.removeItem('token');
+  //   navigate('/sign')
+    
+  // }
 
 
   return (
@@ -256,8 +246,10 @@ export default function Navigation() {
                   </div>
 
                   <div className="flow-root">
-                  
-                    <Link to="account-login" className="-m-2 block p-2 font-medium text-gray-900">
+                    <Link
+                      to="account-login"
+                      className="-m-2 block p-2 font-medium text-gray-900"
+                    >
                       Create account
                     </Link>
                   </div>
@@ -269,10 +261,7 @@ export default function Navigation() {
       </Transition.Root>
 
       <header className="relative   border-emerald-300 rounded-3xl bg-purple-100">
-        <nav
-          aria-label="Top"
-          className="mx-auto"
-        >
+        <nav aria-label="Top" className="mx-auto">
           <div className="border-b border-gray-200">
             <div className="flex h-16 items-center px-11">
               <button
@@ -286,16 +275,14 @@ export default function Navigation() {
 
               {/* Logo */}
               <div className="ml-4 flex lg:ml-0">
-              <Link to="/">
-
+                <Link to="/">
                   <span className="sr-only">Your Company</span>
                   <img
                     className="h-8 w-auto"
                     src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
                     alt=""
                   />
-              </Link>
-              
+                </Link>
               </div>
 
               {/* Flyout menus */}
@@ -409,8 +396,6 @@ export default function Navigation() {
                       )}
                     </Popover>
                   ))}
-
-
                 </div>
               </Popover.Group>
 
@@ -423,11 +408,13 @@ export default function Navigation() {
                     Sign in
                   </Link>
                   <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
-    
-                  <Link to="account-login" className="text-sm font-medium text-gray-700 hover:text-gray-800">
+
+                  <Link
+                    to="account-login"
+                    className="text-sm font-medium text-gray-700 hover:text-gray-800"
+                  >
                     Create account
                   </Link>
-               
                 </div>
                 {/* Search */}
                 <div className="flex lg:ml-6">
@@ -439,7 +426,11 @@ export default function Navigation() {
                     />
                   </a>
                 </div>
-                <Avatars />
+                
+             <Link to="userData">
+                 <Avatar>{name.name}</Avatar>
+               </Link> 
+
                 {/* Cart */}
                 <div className="ml-4 flow-root lg:ml-6">
                   <Link to="bag" className="group -m-2 flex items-center p-2">
@@ -448,13 +439,11 @@ export default function Navigation() {
                       aria-hidden="true"
                     />
                     <span className="sr-only">items in cart, view bags</span>
-                    
-                  <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
+
+                    <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
                       {addme.length}
                     </span>
-
                   </Link>
-                 
                 </div>
               </div>
             </div>

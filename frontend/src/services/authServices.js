@@ -1,7 +1,6 @@
 
 import axios from "axios";
 import { toast } from "react-toastify";
-
 export const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 export const validateEmail = (email) => {
@@ -43,6 +42,13 @@ export const loginUser = async (userData) => {
       { withCredentials: true }
     );
     if (response.statusText === "OK") {
+      console.log(response.data)
+      //cache,cookies, localstorage, authentication vs autherization
+     const token = response.data.token;
+    //  window.location.reload();
+     localStorage.setItem('token', token)
+    //  console.log("here is your token");
+    //  console.log(token)
       toast.success("Login Succesful...");
     }
     return response.data;
@@ -56,17 +62,10 @@ export const loginUser = async (userData) => {
 };
 
 //logout
-export const loginOut = async (userData) => {
+export const loginOut = async () => {
   try {
-    const response = await axios.post(
-      `${BACKEND_URL}/api/users/logout`,
-      userData,
-      { withCredentials: true }
-    );
-    if (response.statusText === "OK") {
-      toast.success("Login Succesful...");
-    }
-    return response.data;
+    await axios.get(`${BACKEND_URL}/api/users/logout`);
+    toast.success("Logout Succesful...");
   } catch (error) {
     const message =
       (error.response && error.response.data && error.response.data.message) ||
@@ -86,6 +85,13 @@ export const adminlogin = async (userData) => {
       { withCredentials: true }
     );
     if (response.statusText === "OK") {
+      //set response to cookies
+      const token = response.data.token;
+      console.log("storeage");
+      console.log(token);
+      localStorage.getItem('token', token)
+      console.log("admin login locakstorage")
+      console.log(localStorage.getItem('token'))
       toast.success("Login Succesful...");
     }
     return response.data;
@@ -98,6 +104,39 @@ export const adminlogin = async (userData) => {
   }
 };
 
+export const getLoginStatus = async () =>{
+  try {
+    const response = await axios.get(
+      `${BACKEND_URL}/api/users/loggedin`,
+      { withCredentials: true }
+    );
+
+    return response.data;
+  } catch (error) {
+    const message = (error.response && error.response.data && error.response.data.message) ||
+      error.message ||
+      error.toString();
+    toast.error(message);
+  }
+}
+
+//Get User Profile
+export const getUserProfile = async () =>{
+  try {
+    const response = await axios.get(
+      `${BACKEND_URL}/api/users/getuser`,
+      { withCredentials: true }
+    );
+
+    return response.data;
+  } catch (error) {
+    const message =
+      (error.response && error.response.data && error.response.data.message) ||
+      error.message ||
+      error.toString();
+    toast.error(message);
+  }
+}
 
 //adminlogout
 
@@ -109,7 +148,9 @@ export const adminlogout = async (userData) => {
       { withCredentials: true }
     );
     if (response.statusText === "OK") {
-      toast.success("Login Succesful...");
+      const token = response.data.token;
+      localStorage.setItem('token', token)
+      toast.success("Login out...");
     }
     return response.data;
   } catch (error) {

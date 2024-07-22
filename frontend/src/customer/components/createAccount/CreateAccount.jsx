@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import "./account.css";
 import { registerUser } from "../../../services/authServices";
 import { useNavigate } from "react-router-dom";
 
@@ -27,14 +26,20 @@ function CreateAccount() {
     };
 
     try {
-      const data = await registerUser(userData);
-      console.log(data);
-      navigate("/sign"); 
+      const errors = validate(formValues);
+      setFormErrors(errors);
+     
+      if (Object.keys(errors).length === 0) {
+        const data = await registerUser(userData);
+        console.log(data);
+        navigate("/");
+      }
 
     } catch (error) {
       console.log(error.message);
     }
   };
+  
 
   useEffect(() => {
     if (Object.keys(formErrors).length === 0 && isSubmit) {
@@ -65,50 +70,57 @@ function CreateAccount() {
   };
 
   return (
-    <div className="form-container">
-      <form onSubmit={handleSubmit}>
-        <h1>Login Form</h1>
-        <div className="ui divider"></div>
-        <div className="ui form">
-          <div className="field">
-            <label>Username</label>
+    <div className="min-h-screen flex items-center justify-center bg-gray-200">
+      <div className="max-w-md w-full p-8 bg-white shadow-md rounded-lg">
+        <h1 className="text-4xl font-bold text-center text-blue-500 mb-8">Create Account</h1>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="block text-gray-700">Username</label>
             <input
               type="text"
               name="username"
               placeholder="Username"
               value={formValues.username}
               onChange={handleChange}
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
             />
+            {formErrors.username && <p className="text-red-500">{formErrors.username}</p>}
           </div>
-          <p>{formErrors.username}</p>
-          <div className="field">
-            <label>Email</label>
+          <div>
+            <label className="block text-gray-700">Email</label>
             <input
               type="text"
               name="email"
               placeholder="Email"
               value={formValues.email}
               onChange={handleChange}
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
             />
+            {formErrors.email && <p className="text-red-500">{formErrors.email}</p>}
           </div>
-          <p>{formErrors.email}</p>
-          <div className="field">
-            <label>Password</label>
+          <div>
+            <label className="block text-gray-700">Password</label>
             <input
               type="password"
               name="password"
               placeholder="Password"
               value={formValues.password}
               onChange={handleChange}
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
             />
+            {formErrors.password && <p className="text-red-500">{formErrors.password}</p>}
           </div>
-          <p>{formErrors.password}</p>
-          <button disabled={Object.keys(formErrors).length !== 0} className="fluid ui button blue">Submit</button>
-        </div>
-      </form>
+          <button
+            type="submit"
+            className="w-full bg-blue-500 text-white font-semibold py-2 rounded-md hover:bg-blue-600 transition duration-300"
+            disabled={Object.keys(formErrors).length !== 0}
+          >
+            Submit
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
 
 export default CreateAccount;
-

@@ -20,20 +20,33 @@ import 'react-toastify/dist/ReactToastify.css';
 import BuyNowPage from './customer/components/addbag/BuyNowPage.jsx';
 import Admin from './customer/components/admin/Admin.jsx';
 import Adminlogin from './customer/components/admin/Adminlogin.jsx';
+import UserData from './customer/components/userData/UserData.jsx';
+import Addproduct from './customer/components/admin/productdetail/addproduct/Addproduct.jsx';
+import Allproduct from './customer/components/admin/productdetail/allproduct/Allproduct.jsx';
+import ParentComponent from './customer/components/dressProduct/ParentComponent.jsx';
+import CreateProductForm from './customer/components/dressProduct/createProduct/CreateProductForm.jsx';
+import Updatedummy from './customer/components/dressProduct/updateProduct/Updatedummy.jsx';
+
 
 axios.defaults.withCredentials = true;
 
-const router = createBrowserRouter([
-  {
+
+const isUserSignedIn = !!localStorage.getItem('token')
+const router =  createBrowserRouter([
+  { 
     path:"/",
-    element:<Layout/>,
+    element: <Layout/>,
     children:[
     {
       path:'/',
-      element:<HomePages/>
+      element: <HomePages/>,
+    },
+    {
+path:"userData",
+element: <UserData/>
     },
       {
-        path:"sign",
+        path:"/sign",
         element:<Sign/>
       },{
         path:"price",
@@ -47,14 +60,7 @@ const router = createBrowserRouter([
         path:"/account-login",
         element:<CreateAccount/>
       },
-      {
-        path:"/admin",
-        element:<Admin/>
-      },
-      {
-        path:"/adminlogin",
-        element:<Adminlogin/>
-      }
+     
        
     
     ],
@@ -75,8 +81,35 @@ const router = createBrowserRouter([
       {
         path:"/bag/buy",
         element:<BuyNowPage/>
-      }
-    
+      },
+      {
+        path:"/admin",
+        element:isUserSignedIn && <Admin/>
+      },
+      {
+        path:"/adminlogin",
+        element:<Adminlogin/>
+      },
+      {
+        path:"/admin/add-product",
+        element:<Addproduct/>
+      },
+      {
+        path:'/admin/all-product',
+        element:<Allproduct/>
+      },
+      {
+        path:'/admin/dummy',
+        element:<ParentComponent/>
+      },
+      {
+        path:'/admin/dummy/createProductForm',
+        element:<CreateProductForm/>
+      },
+      {
+        path:'/admin/dummy/updatedummy/:productId',
+        element:<Updatedummy/>
+      },
     ]
   }
 ])
